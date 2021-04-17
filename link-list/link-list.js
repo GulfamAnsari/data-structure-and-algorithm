@@ -120,4 +120,5 @@ ll.removeFromLast();
 ll.removeFromLast();
 ll.remove(4);
 ll.display();
-console.log('size is', ll.size)
+console.log('size is', ll.size);
+console.log(ll.head)

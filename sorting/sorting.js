@@ -76,7 +76,7 @@ function shellSort(array) {
     return array;
 }
 // Correct shell sort
-function shellSort(arr) {
+function shellSort2(arr) {
     let n = arr.length;
 
     for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
@@ -223,6 +223,48 @@ function countSort(array) {
     return array;
 }
 
+function countSort2(array) {
+    var countArray = [];
+    var result = [];
+    var min = Math.min(...array);
+    var max = Math.max(...array);
+    for (var i = min; i <= max; i++) {
+        countArray[i] = 0;
+    }
+    for (let v of array) {
+        countArray[v] += 1;
+    }
+    for (var i = min; i <= max; i++) {
+        while(countArray[i] > 0) {
+            result.push(i);
+            countArray[i] -= 1;
+        }
+    }
+    return result;
+}
+
+function bucketSort(array) {
+    var max = Math.max(...array);
+    var numberOfDigits = `${max}`.length;
+    function asInteger(num) {
+        return Math.abs(Math.trunc(num));
+    }
+    function digitAtPosition(num, pos) {
+        return Math.floor(asInteger(num) / Math.pow(10, asInteger(pos))) % 10;
+    }
+    let buckets = Array.from({ length: 10 }, () => []);
+    for (var index = 0; index < array.length; index++) {
+        buckets[digitAtPosition(array[index], numberOfDigits - 1)].push(array[index]);
+    }
+    for (var i = 0; i < buckets.length; i++) {
+        if (buckets[i].length) {
+            buckets[i].sort();
+        }
+    }
+    array = [].concat(...buckets);
+}
+console.log(bucketSort([3,1,56,23,7,9]));
+
 
 // 2. Radix sort:
 function radixSort(array) {
@@ -243,6 +285,7 @@ function radixSort(array) {
     }
     return array;
 }
+radixSort([3,1,56,23,7,9]);
 
 // Tree sort
 // Tree sort uses a binary search tree. It involves scanning each element of the input and placing it

@@ -13,9 +13,9 @@ function CircularQuque() {
     }
 
     function enqueq(element) {
-        if (this.front == -1 && this.rear == -1) {
-            this.front++;
-            this.rear++;
+        if (this.front == -1) {
+            this.front = 0;
+            this.rear = 0;
             this.data[0] = element;
         } else {
             var index = (this.rear + 1) % this.data.length;
@@ -32,12 +32,16 @@ function CircularQuque() {
 
     function dequeq() {
         var index = (this.front + 1) % this.data.length;
-        if (this.rear === this.front) {
+        if (this.front == -1) {
             console.log('Queque is already empty');
             return false
         } else {
             this.data[this.front] = undefined;
-            this.front = index;
+            if (this.front == this.rear) {
+                this.front = -1;
+            } else {
+                this.front = index;
+            }
         }
         return true;
     }
@@ -45,9 +49,7 @@ function CircularQuque() {
 
 var CQ = new CircularQuque();
 CQ.createCircularQueque(5);
-CQ.enqueq(1); CQ.enqueq(2); CQ.enqueq(3);
+CQ.enqueq(1);
 CQ.dequeq();
-CQ.enqueq(4); CQ.enqueq(5);
 CQ.dequeq();
-CQ.enqueq(6); CQ.enqueq(7);
 console.log(CQ.data);

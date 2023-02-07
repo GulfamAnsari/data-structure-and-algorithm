@@ -26,6 +26,29 @@ function BinaryTree() {
         }
     }
 
+    function insert(root, node, dir) {
+        switch (dir) {
+            case 'left':
+                if (root.left) {
+                    insert(root.left, node, 'left');
+                } else {
+                    root.left = node;
+                }
+                break;
+
+            case 'right':
+                if (root.right) {
+                    insert(root.right, node, 'right');
+                } else {
+                    root.right = node;
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
     function levelOrderTraversal() {
         var root = this._root;
         var queqe = [];
@@ -134,28 +157,7 @@ function BinaryTree() {
 
     }
 
-    function insert(root, node, dir) {
-        switch (dir) {
-            case 'left':
-                if (root.left) {
-                    insert(root.left, node, 'left');
-                } else {
-                    root.left = node;
-                }
-                break;
-
-            case 'right':
-                if (root.right) {
-                    insert(root.right, node, 'right');
-                } else {
-                    root.right = node;
-                }
-                break;
-            default:
-                break;
-        }
-
-    }
+    
 
     this.insertLeft = insertLeft;
     this.insertRight = insertRight;

@@ -157,8 +157,6 @@ function BinaryTree() {
 
     }
 
-    
-
     this.insertLeft = insertLeft;
     this.insertRight = insertRight;
     this.inOrderTraversal = inOrderTraversal;
@@ -176,6 +174,8 @@ bt.insertLeft(2);
 bt.insertRight(3);
 bt.insertRight(4);
 bt.insertRight(5);
-console.log(bt.postOrderTraversal(bt._root));
-console.log(bt.postOrderTraversalUsingStack());
+console.log(bt.preOrder(bt._root));
+// console.log(bt.preOrderTraversal(bt._root));
+// console.log(bt.postOrderTraversal(bt._root));
+// console.log(bt.postOrderTraversalUsingStack());
 

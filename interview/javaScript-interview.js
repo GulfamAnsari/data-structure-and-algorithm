@@ -1,14 +1,61 @@
-// 1. Write a clousure.
-// 2. What is hoisting
-// 3. What is event loop and how it works?
-// 4. Polyfil for below function or classes?
-        // 1. Map
-        // 2. Filter
-        // 3. Reduce
-        // 4. Promise
-        // 5. .Call, .Bind, .Apply
+///////////***************************////////////
+// 1. What is closure with an example?
+///////////***************************////////////
+// Function which remeber its parent lexical scope where it was created forms a clousure
+// OR
+// Function local varibales bundles with thier lexical scope forms a closure.
+// -> Every function in JS are considered as clousure function. 
+// -> This behaviour implements the data hiding concept as well.
+function Counter() {
+    let count = 0;
+    return function() { // This function will remeber the count variable.
+        count++;
+        console.log(count);
+    }
+}
+let counter = Counter();
+counter();
+counter();
+counter();
 
-// 5. What is currying? Write a currying function for infinity addition?
+
+///////////***************************////////////
+// 2. What is hoisting?
+///////////***************************////////////
+// Hoisting is a phenomemon where we can access the variables and functions before its initilization.
+// This is happened because JS first created the memory for each of variables and function before any code exicution.
+// -> var and function created with function keywords can be accessed with any error.
+// -> let, const will also hoisted but they will allocated the memory in different memory space.
+
+///////////***************************////////////
+// 3. What is temporal dead zone?
+///////////***************************////////////
+// Its a time between creation of let and const variables till assignment of its value.
+// If you are accessing its value in temporal dead zone, then Js will throw an error. "You can not access varibel before initilization"
+
+
+///////////***************************////////////
+// 4. What is event loop and how it works?
+///////////***************************////////////
+// 1. Callback stack
+// 2. Callback queque / task queque
+// 3. Microtask queque
+// 4. Event loop
+// 5. Web APIs
+
+///////////***************************////////////
+// 5. Polyfil for below function or classes?
+    // 1. Map
+    // 2. Filter
+    // 3. Reduce
+    // 4. Promise
+    // 5. .Call, .Bind, .Apply
+    // 6. Promise.all
+///////////***************************//////////// 
+
+///////////***************************////////////
+// 6. What is currying? Write a currying function for infinity addition?
+///////////***************************//////////// 
 // Currying is an advanced technique of working with functions. 
 // Currying is a transformation of functions that translates a function 
 // from callable as f(a, b, c) into callable as f(a)(b)(c)
@@ -18,6 +65,16 @@ function sum(a) {
         else return a;
     };
 }
+
+function sum(...args) {
+    const s = [...args].reduce((prev, ele) => { return prev + ele });
+    return function(...childArgs) {
+        if (childArgs.length) return sum(s, ...childArgs);
+        return s;
+    }
+}
+
+console.log(sum(1)(2, 10)(3)(4)());
 
 // 6. What is debouncing and create a debounce function
 // Debouncing is a programming pattern or a technique to restrict the calling of a time-consuming function frequently,
@@ -77,3 +134,8 @@ function throattle(callback, throattlingTime) {
 // Attaching an event handlers to each child divs are not efficient. so in place of attaching handler at each div, we can
 // attach an event handler to parent div so that we can capture all child events using event capturing.
 
+// 10. Web workers?
+// Web workers are JS scripts that runs in different thread without interfaring to the main JS thread.
+
+// 11. Service Worker?
+// 

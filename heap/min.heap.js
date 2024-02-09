@@ -1,10 +1,17 @@
 function MinHeap() {
     this.items = [];
 
+    this.length = function() {
+        return this.items.length;
+    }
     this.swap = function (index1, index2) {
         var temp = this.items[index1];
         this.items[index1] = this.items[index2];
         this.items[index2] = temp;
+    }
+
+    this.top = function() {
+        return this.items[0];
     }
 
     this.parentIndex = function (index) {
@@ -53,16 +60,45 @@ function MinHeap() {
         }
     }
 
+    this.delete = function() {
+        var rootElement = this.items[0];
+        this.items[0] = this.items[this.items.length-1];
+        var root = this.items.pop();
+        var index = 0;
+        var parent = this.items[0];
+        while (index >= 0) {
+            var parentIndex = this.bubbleDown(index, parent);
+            index = parentIndex;
+            parent = this.items[index];
+        }
+        return rootElement;
+        
+    }
+
+    this.bubbleDown = function(index, parent) {
+        var parentIndex = index;
+        var leftChildIndex = this.leftChildIndex(index);
+        var rightChildrenIndex = this.rightChildrenIndex(index);
+        var leftChild = this.leftChild(index);
+        var rightChild = this.rightChild(index);
+        if (leftChild < parent || rightChild < parent) {
+            if (leftChild < parent && rightChild < parent) {
+                if (leftChild < rightChild) {
+                    this.swap(leftChildIndex, parentIndex);
+                    return leftChildIndex;    
+                } else {
+                    this.swap(rightChildrenIndex, parentIndex);
+                    return rightChildrenIndex;    
+                }
+            } else if (leftChild < parent) {
+                this.swap(leftChildIndex, parentIndex);
+                return leftChildIndex;
+            } else {
+                this.swap(rightChildrenIndex, parentIndex);
+                return rightChildrenIndex;
+            }
+        } else {
+            return -1;
+        }
+    }
 }
-
-var minHeap = new MinHeap();
-minHeap.add(25);
-minHeap.add(15);
-minHeap.add(10);
-minHeap.add(1);
-minHeap.add(2);
-minHeap.add(3);
-minHeap.add(4);
-minHeap.add(20);
-
-console.log(minHeap)

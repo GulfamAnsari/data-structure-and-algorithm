@@ -36,21 +36,11 @@ Array.prototype.myReduce = function (callback, initialValue) {
 
 // 4. Promise Function
 class myPromise {
-    onResponse = null;
-    onReject = null;
     constructor(callback) {
         this.callback = callback;
     }
-    respose = (value) => {
-        this.onResponse(value);
-    }
-    reject = (value) => {
-        this.onReject(value);
-    }
     then = (thenHandler, errorHandler) => {
-        this.onResponse = thenHandler;
-        this.onReject = errorHandler;
-        this.callback(this.respose, this.reject);
+        this.callback(thenHandler, errorHandler);
     }
 }
 
@@ -74,4 +64,24 @@ Function.prototype.myBind = function myCall(context, ...parameters) {
     return function() {
         context.callback(...parameters);
     }
+}
+
+// 8. Promise.all
+Promise.myAll = function (promiseAsArray) {
+    return new Promise((resolve, rej) => {
+        let res = [];
+        let index = 0;
+        for (let a of promiseAsArray) {
+            resolvePromise(index, a);
+            index++;
+        }
+        function resolvePromise(i, promise) {
+            promise.then((d) => {
+                res[i] = d;
+                if (res.length == promiseAsArray.length) {
+                    resolve(res);
+                }
+            })
+        }
+    })
 }

@@ -38,7 +38,7 @@ You can style the react component by using below methods.
     4. ComponentDidMount
  2. Updating - 
     1. static getDerivedStateFromProps
-    2. shouldComponentupdate: <p style="color: blue">Return false if you dont want to rerender the component</p>
+    2. shouldComponentupdate: <font color="blue">Return false if you dont want to rerender the component</font>
     3. render
     4. getSnapshotBeforeUpdate
     5. ComponentDidUpdate(prevProps, prevState, snapShot <span style="color: red">{ this is we get from return of getSnapshotBeforeUpdate}</span>)

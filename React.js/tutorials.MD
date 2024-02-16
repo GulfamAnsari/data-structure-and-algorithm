@@ -48,7 +48,7 @@ You can style the react component by using below methods.
     1. static getDerivedFromError
     2. componentDidCatch
 ## 5. What is Pure component and How to create Pure component in class as well as in functional component?
-# Pure component are react component that only rerender of shalow comparision of new props changes.
+### Pure component are react component that only rerender of shalow comparision of new props changes.
 - In class component, we can extent PureComponent class to create pure component.
 - In functiona compoennt, we can wrap the component in React.memo(Component).
 

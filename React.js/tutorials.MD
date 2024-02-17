@@ -52,3 +52,63 @@ You can style the react component by using below methods.
 - In class component, we can extent PureComponent class to create pure component.
 - In functiona compoennt, we can wrap the component in React.memo(Component).
 
+## 6. What is ref in ReactJs
+ref is basically used to access the DOM elements in react.
+
+## 7, What are portals?
+Portals are used to create parralled HTML DOM to "root". We can use portals to create Modals. There is an React function to create portals.
+
+## 8. Error Boundary in class component?
+Error boundary are react components that catch the JS errors in child components tree, log those error, and display the fall-back UI.
+A component becomes Error boundary by implements the static getDerivedFromError or componentDidCatch or both.
+
+## 9. What is Higher order component and why we need HOC?
+HOC is pattern that take component as an input and provide the new component as an output.
+- The HOCs are used to provide addition feature to passed component.
+- It also used to reuse the code. like we have to create similiar kind of functionality for each component that we can create an HOC and add the same logic here and pass component that we need to share this login.
+```
+const IronMan = WithSuite(TonyStart);
+const CaptainMarvel = WithSuite(Steave);
+```
+Here Withsuite is a HOC that add the additional features to provided component.
+You can create HOC by using two ways
+1.
+```JSX
+function MovieHOC(props) {
+  return <div>Movie is: {props.children}</div>;
+}
+
+export default MovieHOC;
+
+- USAGE
+<MovieHOC>
+    <Movies name="Hum" />
+</MovieHOC>
+
+```
+2.
+```JSX
+function HOC(Component) {
+  return function abc(props) {
+    return (
+      <div>
+        <h4>Game name is </h4>
+        <Component {...props} />
+      </div>
+    );
+  };
+}
+
+export default HOC;
+
+'USAGE'
+import HOC from "./HOC";
+
+function Game({ name }) {
+  return <div>{name}</div>;
+}
+
+export default HOC(Game);
+
+```
+

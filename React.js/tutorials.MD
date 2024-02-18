@@ -112,3 +112,58 @@ export default HOC(Game);
 
 ```
 
+## 10. What is render props
+Render props are a powerful pattern in React that allows you to share code between components using a prop whose value is a function.
+- It’s important to remember that just because the pattern is called “render props” you don’t have to use a prop named render to use this pattern. In fact, any prop that is a function that a component uses to know what to render is technically a “render prop”.
+
+```JSX
+function Game({ name, render }) {
+  return (
+    <div>
+      {name}
+      {render("ReactJS")}
+    </div>
+  );
+}
+<Game name="Game 1" render={(name) => (<Movies name={name} />)} />
+```
+
+## 11. What is context?
+Context provides a way to pass data through the component tree without having to pass props down manually(called props drilling) at every level.
+```JSX
+import { createContext } from "react";
+export const UserContext = createContext();
+--------------------------------------------------------------------------------
+ <UserContext.Provider value={{ name: "Gulfam" }}>
+    <Game name="Game 1" render={(name) => <Movies name={name} />} />
+</UserContext.Provider>
+--------------------------------------------------------------------------------
+function Game({ render }) {
+  const context = useContext(UserContext);
+  return (
+    <div>
+      {context.name}
+      {render("ReactJS")}
+    </div>
+  );
+}
+```
+
+## 12. What are Hooks?
+Hooks are the fature to use the state and other React features in functional component. There are several react hooks.
+1. useEffect - The useEffect Hook allows you to perform side effects in your components. Some examples of side effects are: fetching data, directly updating the DOM, and timers. useEffect accepts two arguments.
+2. useState - It is used to create local state in the component
+3. useRef - ref is basically used to access the DOM elements in react.
+4. useContext - It is used to create parent level state that can be passed in to nested component without drilling down props.
+5. useReducer - useReducer is very similar to useState , but it lets you move the state update logic from event handlers into a single function outside of your component. 
+6. useCallback - It gives us the memorize callback function that changes when dependency changes. It is not related to React.memo(used for create pure component).
+7. useMemo - React useMemo() hook is a function that caches the value produced from an expensive function used inside a React component. It accepts the expensive function and works by storing the value produced from the function when that is passed the same arguments repeatedly.
+Here calculateSum will only calculated if count is changes
+```JSX
+const calculateSum = useMemo(() => {
+    return 2 + 12 + count;
+}, [count]);
+return {calculateSum};
+```
+
+

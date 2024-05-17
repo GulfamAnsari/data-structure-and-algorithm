@@ -4,7 +4,7 @@
 // Function which remeber its parent lexical scope where it was created forms a clousure
 // OR
 // Function local varibales bundles with thier lexical scope forms a closure.
-// -> Every function in JS are considered as clousure function. 
+// -> Every function in JS are considered as clousure function.
 // -> This behaviour implements the data hiding concept as well.
 function Counter() {
     let count = 0;
@@ -25,7 +25,9 @@ counter();
 // Hoisting is a phenomemon where we can access the variables and functions before its initilization.
 // This is happened because JS first created the memory for each of variables and function before any code exicution.
 // -> var and function created with function keywords can be accessed with any error.
-// -> let, const will also hoisted but they will allocated the memory in different memory space.
+// -> variables defined with let and const are hoisted to the top of the block as well, but not initialized
+// Meaning: The block of code is aware of the variable, but it cannot be used until it has been declared.
+// Using a let variable before it is declared will result in a ReferenceError .
 
 ///////////***************************////////////
 // 3. What is temporal dead zone?
@@ -51,13 +53,13 @@ counter();
     // 4. Promise
     // 5. .Call, .Bind, .Apply
     // 6. Promise.all
-///////////***************************//////////// 
+///////////***************************////////////
 
 ///////////***************************////////////
 // 6. What is currying? Write a currying function for infinity addition?
-///////////***************************//////////// 
-// Currying is an advanced technique of working with functions. 
-// Currying is a transformation of functions that translates a function 
+///////////***************************////////////
+// Currying is an advanced technique of working with functions.
+// Currying is a transformation of functions that translates a function
 // from callable as f(a, b, c) into callable as f(a)(b)(c)
 function sum(a) {
     return function(b) {
@@ -78,7 +80,7 @@ console.log(sum(1)(2, 10)(3)(4)());
 
 // 6. What is debouncing and create a debounce function
 // Debouncing is a programming pattern or a technique to restrict the calling of a time-consuming function frequently,
-//  by delaying the execution of the function until a specified time to avoid unnecessary CPU cycles, 
+//  by delaying the execution of the function until a specified time to avoid unnecessary CPU cycles,
 //  and API calls and improve performance.
 document.getElementById("input").addEventListener("keypress", (e) => {
     debounce(e.target.value);
@@ -99,8 +101,8 @@ function _debounce(callback, timeLimit) {
 }
 
 // 7. What is throattling?
-// Throttling implies limiting the number of times a function gets called in a certain time period. 
-// It will prohibit a function from executing if we have invoked it “recently.” 
+// Throttling implies limiting the number of times a function gets called in a certain time period.
+// It will prohibit a function from executing if we have invoked it “recently.”
 // Throttling also guarantees that a function runs at a consistent rate.
 function buttonclick() {
     let time = 0;

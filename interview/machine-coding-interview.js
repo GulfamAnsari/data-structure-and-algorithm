@@ -211,5 +211,49 @@ for (let i = 1; i <= 20; i++) {
     }, i * 500);
 }
 
-// 7. Develope a file/folder menu just like VS code.
-// Trick: You have to use the event bubbling to cancle the events bubble at child div
+
+
+
+// 7.  1000 promise object - running in a batch of 5
+// // t0 = p1, p2, p3, p4, p5; (p1, p3 - resolved)
+// // t1 = p2, p4, p5, p6, p7; (p7)
+// // t2 = p2, p4, p5, p6, p8; (p2, p5)
+
+
+
+let promises = [];
+for (let i = 0; i < 10; i++) {
+    // promises.push(Promise.resolve(i));
+    promises.push(createPromise(i));
+}
+
+function createPromise(i) {
+    return new Promise((res) => {
+        let ran =  Math.floor(Math.random() * 5000);
+        setTimeout(() => {
+            res(i);
+        }, ran);
+    })
+}
+
+
+const batchLength = 5;
+let queque = promises.splice(0, batchLength);
+
+let runningPromises = [];
+function runBatch() {
+    while (queque.length) {
+        let ele = queque.pop();
+        runningPromises.push(ele);
+        ele.then((data) => {
+            console.log(data)
+            runningPromises.pop();
+            if (promises.length) {
+                queque.push(promises.pop());
+                runBatch();
+            }
+        });
+    }
+    console.log('Curretly running promises', runningPromises.length);
+}
+runBatch();

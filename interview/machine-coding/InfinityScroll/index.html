@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 56%;
+            border: solid 1px grey;
+            padding: 12px;
+            margin: 12px 0;
+        }
+        .box h4, .box h5, .box h6 {
+            margin: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ol id="variable"></ol>
+        <p id="target">Loading....</p>
+    </div>
+    <script>
+
+        const container = document.querySelector(".container");
+        const t = document.getElementById("target");
+        const options = {
+            root: null, // if null, then point to viewport
+            threshold: 0, // % of target visible in the are
+            rootMargin: '0px' // It increase or decreases the container
+        }
+
+        const observer = new IntersectionObserver((oberverEntries, oberver) => {
+            oberverEntries.map((entry) => {
+                if (entry.isIntersecting) {
+                    fakeAPI().then((d) => {
+                        d.forEach(element => {
+                            let node = document.createElement('li');
+                            node.innerHTML = `<div class="box">
+                                <img src="${element.picture.thumbnail}" />
+                                <h4>${element.name.title + ' ' + element.name.first + ' ' + element.name.last}</h4>
+                                <h6>${element.email}<h6>
+                                <h6>${element.gender}<h6>
+                            </div>`;
+                            document.getElementById("variable").appendChild(node);
+                        });
+                    })
+                }
+            });
+
+            console.log(oberverEntries, oberver)
+        }, options);
+
+        observer.observe(t);
+
+        function fakeAPI() {
+            return new Promise((res) => {
+                fetch('https://randomuser.me/api/?results=10')
+                    .then(response => response.json())
+                    .then(json => res(json.results));
+            })
+        }
+    </script>
+</body>
+
+</html>

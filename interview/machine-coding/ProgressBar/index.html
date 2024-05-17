@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(43, 42, 42);
+            color: wheat;
+        }
+
+        #progress-bar-container {
+            width: 100%;
+            height: 36px;
+            background-color: rgb(225, 198, 164);
+        }
+
+        #progress-bar {
+            background-color: green;
+            height: 100%;
+            width: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <h4>Progress bar</h4>
+    <div id="progress-bar-container">
+        <div id="progress-bar">
+        </div>
+    </div>
+    <script>
+        function increaseProgress(percentage) {
+            var parentWidth = document.getElementById('progress-bar-container').getBoundingClientRect().width;
+            var width = document.getElementById('progress-bar').getBoundingClientRect().width;
+            if (parentWidth > width) {
+                document.getElementById("progress-bar").style.width = width + percentage + 'px';
+                setTimeout(() => {
+                    increaseProgress(1);
+                }, 10);
+            }
+        }
+        increaseProgress(1);
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 ## 1. What is React.Js?
-React Js is a library that is used to building user interface. It is not responsible for HTTP requiest to routing.
+React Js is a library that is used to building user interface. It is not responsible for HTTP request or routing.
 
 ## 2. What is JXS?
 Extension to JavaScript language syntax. You can write the code without use of JSX.
@@ -48,7 +48,7 @@ You can style the react component by using below methods.
     1. static getDerivedFromError
     2. componentDidCatch
 ## 5. What is Pure component and How to create Pure component in class as well as in functional component?
-### Pure component are react component that only rerender of shalow comparision of new props changes.
+### Pure component are react component that only rerender if shallow comparision of new props changes.
 - In class component, we can extent PureComponent class to create pure component.
 - In functiona compoennt, we can wrap the component in React.memo(Component).
 
@@ -125,7 +125,7 @@ function Game({ name, render }) {
     </div>
   );
 }
-<Game name="Game 1" render={(name) => (<Movies name={name} />)} />
+<Game name="Game 1" render={(name) => { return <Movies name={name} /> }} />
 ```
 
 ## 11. What is context?

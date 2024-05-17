@@ -115,36 +115,82 @@ let women = new Women("B");
 // In this type of pattern, there are three componets
 // 1. Obserable, 2 subscriber, notify
 // Once any observer subscribe to that obserable then he should nofity about any changes.
-class Obserable {
+class ObserverPatter {
     constructor() {
         this.observer = [];
     }
 
-    subscribe = (fun) => {
-        this.observer.push(fun);
+    subscribe(callback) {
+        this.observer.push(callback);
     }
 
-    unsubsribe = (fun) => {
-        this.observer.splice(this.observer.indexOf(fun), 1);
+    unsubcribe(fun) {
+        this.observer = this.observer.filter((ele) => {
+            return ele != fun;
+        })
     }
 
-    notify = (val) => {
-        this.observer.forEach((obs) => {
-            obs(val);
+    notify(val) {
+        this.observer.forEach((ele) => {
+            ele(val);
         })
     }
 }
 
-let obs = new Obserable();
-obs.subscribe((value) => {
-    console.log("s1", value);
-});
-obs.subscribe((value) => {
-    console.log("s2", value);
-});
+let callback = (data) => { console.log(data)};
+let obsPattern = new ObserverPatter();
+obsPattern.subscribe(callback)
+obsPattern.subscribe((data) => { console.log(data, "s1")})
+obsPattern.subscribe((data) => { console.log(data, "s2")});
+obsPattern.unsubcribe(callback);
+
+console.log(obsPattern.notify('new notification'));
 
 
-// 8. Proxy pattern
+// 8 . PubSub pattern
+class PublisherSubscriber {
+    constructor() {
+        this.subscribers = new Map();
+    }
+
+    subscribe(callback, id) {
+        if (this.subscribers.has(id)) {
+            let arr = this.subscribers.get(id);
+            arr.push(callback);
+            this.subscribers.set(id, arr);
+        } else {
+            this.subscribers.set(id, [callback]);
+        }
+    }
+
+    unsubscribers(id) {
+        let array = this.subscribers.get(id);
+        this.subscribers.set(id, array.filter((el) => { return el != id }));
+    }
+
+    publish(channelId) {
+        for(let callback of this.subscribers.get(channelId)) {
+            callback("new video published on " + channelId);
+        }
+    }
+}
+
+let pubsub = new PublisherSubscriber();
+pubsub.subscribe((val) => {
+    console.log(val)
+}, 'droidtechknow');
+pubsub.subscribe((val) => {
+    console.log(val)
+}, 'droidtechknow');
+pubsub.subscribe((val) => {
+    console.log(val)
+}, 'droidtechknow');
+pubsub.subscribe((val) => {
+    console.log(val)
+}, 'techninja');
+pubsub.publish('droidtechknow');
+
+// 9. Proxy pattern
 // In this type of pattern, we interect with the proxy rather than the origional class
 const User  = {
     name: "something",
